@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Google Maps Store Locator</title>
+        <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+        <link rel="stylesheet" href="style/style.css">
+    </head>
+    <body>
+        <div class="title">Store Location</div>
+
+        <!-- div para configurar o id do mapa, é oq contem o mapa -->
+        <div id='map'></div>
+        <div class="search-container">
+            <div class="search">
+                <!-- input para digitar o local -->
+                <input id="zip-code-input" type="text" placeholder="Enter zip" >
+                <!-- icone de pesquisar -->
+                <i class="fas fa-search" onclick="searchStore()"></i> 
+            </div>
+        </div>
+        
+        <!-- configurar lista  -->
+        <div class="store-list-container">
+
+            <div class="stores-list" >
+
+                <div class="store-container">
+
+                    <!-- dentro dessa classe vai se o background..  -->
+                    <div class="store-container-background">
+
+                        <!-- vai mostrar as informacoes endereco e numero phone -->
+                        <div class="store-info-container">
+
+                            <!-- endereco 1 e 2 da loja -->
+                            <div class="store-address">
+                                <span>257 S. La Cienega Blvd.</span>
+                                <span>Beverly Hills, CA 90211</span>
+                            </div>
+
+                            <!-- numero de telefone da loja -->
+                            <div class="store-phone-number">234-4534-234</div>
+                        
+                        </div>
+
+                        <!-- index da loja 0,1,2,3,4... -->
+                        <div class="store-number-container">
+                            <div class="store-number">1</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- funcao que vai iniciar o mapa -->
+        <!-- chamar a funcao do index.js -->
+        <script src="js/index.js" ></script>
+        <script src="js/store-data.js" ></script>
+
+        <!-- async defer é o que importa o google maps app ou API do google -->
+        <!-- o nome da funcao initMap é chamada nesse url, callback=initMap, quando chamar vai inicializar a funcao para iniciar o mapa  -->
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxXfPvCgT3Ir5NoFVJqiUaYc-wIVfKF4U&callback=initMap">
+        </script>
+
+
+
+    </body>
+</html>

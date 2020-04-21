@@ -1,0 +1,998 @@
+
+IMPORTAR GOOGLE MAPS PARA A JANELA ------------------------------------------------------------------------------------
+
+1 - digitar no google Google Maps Store Locator
+ 	vai aparecar um site com o codigo do mapa e as lojas
+		primeiro vamos pegar apenas a funcao de inicializar o google mapas e colar o codigo em `index.js`
+
+
+	function initMap() {
+    		var sydney = {lat: -33.863276, lng: 151.107977};
+    		map = new google.maps.Map(document.getElementById('map'), {
+      			center: sydney,
+      			zoom: 11,
+      			mapTypeId: 'roadmap',
+      			mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU}
+    	})
+	}
+
+
+
+	Obs. 'index.html'	 - estrutura do site
+	     'style.css' 	 - beleza do site, front end
+	     'stote-data.js' 	 - os dados que vao ser utilizados, neste exemplo o display das lojas
+	     'index.js' 	 - o back-end, onde vai ser configurado a ação do codigo	
+
+
+
+2 - Clicar com o botao direito em 'index.html' e 'copy path'
+	colar o path no url do navegador, vai abrir o template de como está ficando o projeto
+
+3 - ir em index.html
+	- criar a <div id='map'></div> no body
+ 
+
+		    <body>
+		        <div id = 'map'></div>
+		    </body>
+
+
+4 - Copiar as variaveis do site e colar em 'index.js'
+
+
+			var map;
+			var markers = [];
+			var infoWindow;
+			var locationSelect;
+
+
+5 - copiar a função initMap() de index.js e colar em index.html dentro de um script
+
+	    <body>
+
+	        <div id = 'map'></div>
+
+	        <script>
+
+	            function initMap() {
+	                var sydney = {lat: -33.863276, lng: 151.107977};
+	                map = new google.maps.Map(document.getElementById('map'), {
+ 	                center: sydney,
+	                zoom: 11,
+	                mapTypeId: 'roadmap',                                  			        < - pode apagar essa linha que é apenas para controle
+ 	                mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU}   < - pode apagar essa linha que é apenas para controle
+ 	               })
+ 	               }
+
+	        </script>
+
+
+	    </body>
+
+6 - em baixo do script da funcao initMap colar o 'async defer' do site que vai importar o google maps app ou API do google -->
+
+
+	<script async defer
+
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+
+        </script>
+
+
+	em key = YOUT_API_KEY , vamos colar nossa API que o google fornece gratuitamente.
+
+	
+		para criar uma api ir no google cloud console, criar uma conta, criar um projeto, ir em API's e serviços - credenciais, criar credenciais 'Chave de API' vai da o codigo, ir em biblioteca para escolher o tipo de serviço da chave neste caso 'maps javascript API' e ativar( pode escolher mais de uma), quando for em credenciais vai estar la o codigo da api.
+
+
+        <script async defer
+        
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxXfPvCgT3Ir5NoFVJqiUaYc-wIVfKF4U&callback=initMap">
+        
+	</script>
+
+
+7 - abir a pagina do navegador, nao vai aparecer nada pois tem q configurar o tamanho.
+	ir em inspecionar elemento, clicar na <div id ='map'...
+		na aba de baixo em styles colocar o weidth e o height
+
+		
+			element.style {
+    				
+    				position: relative;
+    				overflow: hidden;
+				width: 400px;
+    				height: 400px;
+			}
+
+
+8 - configurações do site.. inspecionar elementos...
+
+	cliclar no <body>, o body tem que conter tudo que esta na pagina
+	ir em element.style {}
+
+		element.style {
+
+		margin: 0;
+		padding: 0;
+		width: 100%;	<- ocupar 100% da pagina
+    		height: 100vh;	<- ocupar 100% da pagina vh = vertical height
+
+		}
+
+	agora na <div id=map
+
+	
+		element.style {
+   		 position: relative;
+   		 overflow: hidden;
+   		 width: 100%;		<- o mapa vai ocupar a tela toda
+   		 height: 100%;		<- o mapa vai ocupar a tela toda
+		}
+
+9 - ir em style.css e substituir os comando pelo que alteramos no inspecionar elemento.
+	
+		body {
+    			font-family: Arial, Helvetica, sans-serif;
+    			margin: 0;
+    			padding: 0;
+    			width: 100%;
+    			height: 100vh;
+		}
+
+
+		#map {				<- # map vai pegar o id map e colocar essas configuracoes
+    			position: relative;
+    			overflow: hidden;
+    			width: 100%;
+    			height: 100%;
+		}
+	
+ agora configurar o index.html mostrando o style.css
+
+	ir em head do index.html...
+
+	    <head>
+        	<title>Google Maps Store Locator</title>
+        	<script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+        	<link rel="stylesheet" href="style/style.css">                         <--- comando adicionado
+   	 </head>
+
+	
+10 - importar o javascript file para o index
+	
+	colocar esse codigo em index.html no lugar da funcao initMap()
+
+		<script src="js/index.js" ></script>   <------ script, source= na pasta js, index.js. 
+
+	feito isso pode apagar o script do initMap(), pois a funcao ja ta no index.js
+
+11 - index.js
+
+		function initMap() {
+    			var losAngeles = {						<-- mudar a localizacao
+        		   lat: 34.063380,						<-- latitude
+         		   lng: -118.358080						<-- longitude
+        		};
+    			map = new google.maps.Map(document.getElementById('map'), {
+     			center: losAngeles,						<-centro do mapa
+     			zoom: 11,
+      			mapTypeId: 'roadmap',
+    			})
+		}
+-----------------------------------------------------------------------------------------------------------------------
+
+ADICIONAR TITULO NA JANELA --------------------------------------------------------------------------------------------
+
+1.0 - index.html, no <body>...
+
+		<div class="title">Localizacao Lojas</div>		<- classe title, com o nome Localizacao lojas..
+
+	ir na pagina e configurar o estilo em inspecionar elementos, element.style {}
+
+		element.style {
+
+		    position: absolute;  <- vai deixar o texto atras da janela pois nao vai ocupar nenhum espaço unico
+		    font-size: 80px;     <- tamanho da fonte
+		    color: #333;   	 <- codigo da cor preta
+		    text-transform: uppercase; <- deixar tudo maiusculo
+		    z-index: 100;		<- colocar na posicao 100, na frente de tudo
+		    font-weight: bold;		<- negrito
+		    top: 50px;			<- mover para baixo
+    		    left: 50px;			<- mover para a direita
+		}	
+
+	colar esses dados no style.css
+	
+	para chamar pelo id usamos `#(nome do id)`, para chamar a classe usamos `.(nome da classe)`
+	.title {
+        	font-weight: bold;
+        	position: absolute;
+        	font-size: 55px;
+        	color: #333;
+        	text-transform: uppercase;
+        	z-index: 100;
+        	top: 50px;
+        	left: 50px;
+
+	}
+	
+-----------------------------------------------------------------------------------------------------------------------
+
+ADICIONAR LOJAS AO MAPA -----------------------------------------------------------------------------------------------
+
+1.0 - Em index.js criar funcao para mostrar as lojas, e para criar lojas
+
+	function showStoreMarkers(){
+
+
+	}
+
+	function createMarker(latlng, name, address){    <- vai pegar os parametros latitude e longitude, nome e endereco
+    
+
+	}
+
+
+
+	em store-data.js tem o database das lojas, vamos importar esse DB para index.html
+
+		...
+	        <div id='map'></div>
+
+        	<script src="js/index.js" ></script>
+        	<script src="js/store-data.js" ></script>
+		...
+
+	agora podemos usar esse DB
+
+2.0 - mostrar lista de lojas(stores)
+
+	function showStoreMarkers(){
+
+    		console.log(stores)  <- comando print()
+	
+	}
+
+	chamar essa funcao no final de initMap();
+		
+		function initMap() {
+			...
+			showStoreMarkers();
+		}
+
+	abrir o console no navegador.
+	vai mostrar que tem uma lista com 50 elementos, que sao as lojas
+
+
+2.1 - criar um loop para desenpacotar stores
+
+	
+	 function showStoreMarkers(){
+    
+    		stores.forEach(function(store, index){	<-- fazer loop por todos os itens na lista/array stores
+        	console.log(store);			<-- e vai nos mostrar o item do endereco
+    		})
+
+	}
+	
+
+2.2 - criar a variavel latlng para mapear na tela
+
+	function showStoreMarkers(){
+   
+    		stores.forEach(function(store, index){
+
+        		var latlng = new google.map.latlng(	<- criar a variavel latlng, para criar a coordenada no goolemap
+            		store.coordinates.latitude,		<- passar a cordenada da latitude, store é o item que ta sendo percorrido .coordinates é o nome de um dicionario dentro dos itens que contem a latitude e a longitudo
+            		store.coordinates.longitude);		< store.(dicionario coordinates).(item dentro do dicionario, latitute e longitude)
+
+    		})
+		}
+
+
+2.3 - pegar nome da loja
+	dentro do loop forEach
+
+	function showStoreMarkers(){
+   
+    		stores.forEach(function(store, index){
+
+			...
+
+			var name = store.name
+
+    		})
+		}
+
+2.4 - pegar endereço
+	dentro do loop...
+
+	function showStoreMarkers(){
+   
+    		stores.forEach(function(store, index){
+
+			...
+			var address = store.addressLines[0]	<- pegar na lista addresslinese o primeiro endereço
+
+    		})
+		}
+
+3.0 - depois de criado os 3 parametros criar a loja
+
+	function showStoreMarkers(){
+
+   
+    		stores.forEach(function(store, index){
+
+        		var latlng = new google.map.latlng(
+            		store.coordinates.latitude,
+            		tore.coordinates.longitude);
+        
+        		var name = store.name
+        		var address = store.addressLines[0];
+        
+        		createMarker(latlng, name, address);		<- passar os parametros para criar a loja
+		})
+	}
+
+4.0 - funcao para criar loja
+
+	// codigo copiado da documentacao do google
+
+	function createMarker(latlng, name, address){
+
+
+	// esse comando vai mostrar o simbolo de localizacao do local
+
+	    var html = "<b>" + name + "</b> <br/>" + address;
+	    var marker = new google.maps.Marker({
+	      map: map,
+	      position: latlng
+	    });
+
+
+	}
+
+4.0 - mostrar descricao (infowindow)
+
+	inicializar o info windos na funcao initMap()
+
+	function initMap() {
+    	...
+
+	    infoWindow = new google.maps.InfoWindow(); // inicializar infowindow
+
+	...
+	}
+
+
+	function createMarker(latlng, name, address){
+   		...
+
+	    var marker = new google.maps.Marker({   
+      		map: map,         // Passar a variavel global map criada no inicio                
+      		position: latlng,  // Passar a posicao que pegamos do DB
+      		label: `${index+1}`, // nao pode passar numericos, entao convertemos para string
+    		});
+
+	    
+	    google.maps.event.addListener(marker, 'click', function() {  <----- no `click` desse marker executar a funcao
+
+	      infoWindow.setContent(html);
+	      infoWindow.open(map, marker);
+
+	    });
+
+
+	    markers.push(marker); <--- push = append, vai mandar o valor para a lista
+
+	}
+
+5.0 - definir limite no mapa
+
+	function showStoreMarkers(){
+   
+	 
+    		var bounds = new google.maps.LatLngBounds();  <---- criar a variavel para definir o limite no mapa
+
+    
+ 		stores.forEach(function(store, index){
+        		var latlng = new google.maps.LatLng(
+            		store.coordinates.latitude,
+            		store.coordinates.longitude);
+        
+        		var name = store.name;
+        		var address = store.addressLines[0];
+
+        		createMarker(latlng, name, address, index);
+        
+        		bounds.extend(latlng); <------------------- sempre que latlng for maior, extender
+    })
+    map.fitBounds(bounds); <------- map. encaixar nos limites
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+ADICIONAR INPUT BOX----------------------------------------------------------------------------------------------------
+
+1.0 - criar div em index.html para ficar o input box
+
+	        <div class="search-container">
+            		<div class="search">
+
+			</div>
+        	</div>
+	
+2.0 - ir na web para configurar a view da classe
+
+
+	
+	element.style {
+    		position: absolute;
+    		width: 275px;
+    		height: 45px;
+    		background-color: #454E53;
+    		z-index: 100;
+    		top: 140px;
+    		left: 50px;
+    		border-radius: 50px;
+	}
+
+2.1 - colar esse estilo no css
+
+	.search-container {
+    		position: absolute;
+    		width: 275px;
+    		height: 45px;
+    		background-color: #454E53;
+    		z-index: 100;
+    		top: 140px;
+    		left: 50px;
+    		border-radius: 50px;
+	}
+
+3.0 - adicionar text input
+
+	ir na classe search
+
+	<div class="search-container">
+            <div class="search">
+                <input id="zip-code-container" type="text" placeholder="Enter zip" >
+            </div>
+        </div>
+
+3.1 - site para buscar icones = fontawesome.com
+	so digitar o nome do icone que quer usar e pegar o html dele
+
+	<div class="search-container">
+            <div class="search">
+                <input id="zip-code-container" type="text" placeholder="Enter zip" >
+                <i class="fas fa-search"></i>	<-------- icone
+            </div>
+        </div>	
+
+
+	esse icone vai estar sendo puxado do url, entao em head tem que ter o url de fontawesome.com
+
+		<script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+	
+	fonte com os icones
+
+4.0 - configurar na web
+
+	colocar em <div class="search-container"...
+
+		element.style {
+    			display: flex;	<- alinhar itens
+		}	
+		
+	em <div class="search"...
+
+		element.style {
+    			flex-grow: 1;
+    			display: flex;
+    			align-items: center;
+    			padding-left: 15px;
+    			padding-right: 15px;
+		}
+
+	em <input id="zip-code-input"....
+
+		element.style {
+    			flex-grow: 1;	<- falando pro container crescer o maximo que pode
+    			font-size: 10px;
+    			border: none;
+    			background-color: transparent;	<- deixar da cor da flexbox
+			color: white;			<- cor da letra branca
+		}
+
+	em <i class="fas fa-search"></i>
+
+	
+		element.style {
+    			color: white;
+    			font-size: 15px;
+		}
+
+4.1 - adicionar essas alteracoes em style.css
+
+	.search-container {...}
+	.search {...}
+	.search-container input{...}   <- dentro de search-container ver o input
+	.search i {...}  	       <- dentro de search pegar o `i`	
+
+
+	.search-container input:focus {		<- vai remover a marca azul da borda do input box
+ 	   outline: none;
+	}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+ADICIONAR LISTA DE LOJAS ----------------------------------------------------------------------------------------------
+
+1.0 - criar classe para a lista em index
+
+
+        <div class="store-list-container">
+
+            <div class="stores-list" >
+
+            </div>
+
+        </div>	
+
+2.0 - configurar na web a css da lista
+
+	em <div class="store-list-container">..
+
+		element.style {
+    			position: absolute;
+    			background: white;
+    			width: 260px;
+    			z-index: 100;
+    			bottom: 20px;		<- para ficar 20 pixel de distancia do `chao`
+    			left: 58px;		
+    			top: 200px;		<- e 200 pixel de distancia de cima
+    			border-radius: 30px;
+		}
+
+
+3.0 - criar classes e subclasses para adicionar a lista
+
+  
+        <div class="store-list-container">		<!-- configurar lista
+
+            <div class="stores-list" >			<-- lista geral
+	
+                <div class="store-container">		<-- lojas que contem na lista
+
+                   
+                    <div class="store-container-background">  <!-- dentro dessa classe vai se o background.
+
+                                                
+                        <div class="store-info-container">	<-- vai mostrar as informacoes endereco e numero phone
+
+                        	<div class="store-address">		     <!-- endereco 1 e 2 da loja
+                            		<span>257 S. La Cienega Blvd.</span>	<-- endereco 1 de exemplo para ver como vai ficar
+                            		<span>Beverly Hills, CA 90211</span>
+                       		</div>
+
+                         
+                        	<div class="store-phone-number">234-4534-234</div>     <!-- numero de telefone da loja de exemplo
+
+                        </div>
+
+                        <div class="store-number-container">		<!-- index da loja 0,1,2,3,4...
+                            <div class="store-number">1</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>	
+
+4.0 - Configurar css para a view
+
+	em <div class="store-address"> ...
+
+		element.style {
+   			font-size: 17px;
+    			margin-top: 25px;
+    			color: #514C4C;
+		}
+
+	em <div class="store-phone-number">234-4534-234</div> ...
+
+		element.style {
+    			color: #B5ADAD;
+    			margin-top: 15px;
+    			margin-bottom: 15px;
+		}
+	
+	em <div class="store-number">1</div>
+	
+		element.style {
+    			width: 30px;		<---- com o width e o height vai formar um quadrado
+    			height: 30px;
+    			display: flex;		<---- o display flex vai nos dar funcao para poder alinhar itens
+    			background-color: #454E53;		<- cor de fundo
+    			color: #B5ADAD;				<- cor da fonte
+    			align-items: center;			<- alinha no centro vertivalmente
+    			justify-content: center;		<- alinha no centro horizontalmente fazendo o numeor ficar no meio do quadrado
+			border-radius: 50%;			<- transformar o quadrado em um circulo		
+		}
+
+	em <div classe = "stores-list">..
+		elemente.style{
+    			padding-right: 15px;
+    			padding-left: 15px;
+		}
+
+	em <div class="store-container-background">..
+	
+		element.style {
+    			display: flex;
+			padding-left: 5px;
+    			padding-right: 5px;
+		}
+	em <div class="store-info-container">...
+
+		element.style {
+    			flex-grow: 1;
+		}
+
+	
+4.1 - passar esses codigos para o css.
+
+	.store-address{..}
+	.store-phone-number {...}
+	.store-number {...}
+	.store-container-background{...}
+	.stores-list {...}
+	.store-info-container {...}
+
+	.store-address span{		<--- o span alinha os items
+ 	   display: block;		<--- alinhar no bloco
+	}
+		
+5.0 - alinhar o conteudo da lista
+
+	em  <div class="stores-list" >...
+	
+	element.style {
+	    padding-right: 15px;
+	    padding-left: 15px;
+	}
+	
+	e adicionar no css
+
+5.1 - dnv na web para centralizar o numero
+
+	em  <div class="store-number-container">
+
+		element.style {
+    			display: flex;
+    			align-items: center;
+		}
+
+
+
+	em  <div class="store-container">
+
+		element.style {
+    			border-bottom: 1px solid #979797;	<- vai adicionar uma linha de borda no fim da `caixa` com a cor solida 979797
+		}
+
+adicionar comandos no css....
+
+-----------------------------------------------------------------------------------------------------------------------
+
+FUNCAO PARA MOSTRAR AS LOJAS NA LISTA----------------------------------------------------------------------------------
+
+
+1.0 - index.js para criar a funcao
+
+	function DisplayStores(){
+	
+	    var storesHtml = ''		    // variavel para armazenar o html da loja
+	
+	    
+	    stores.forEach(function(store, index){		// fazer loop pelas lojas
+	        
+        	storesHtml += `					// vai pegar o que contem na loja e adicionar nessa string para cada loja
+	            <div class="store-container">
+	                
+	                <div class="store-container-background">
+	
+	                    <div class="store-info-container">
+	
+	                        <div class="store-address">
+	                            <span>257 S. La Cienega Blvd.</span>
+	                            <span>Beverly Hills, CA 90211</span>
+	                        </div>
+	                
+	                        <div class="store-phone-number">234-4534-234</div>
+                
+	                    </div>
+	            
+	                    <div class="store-number-container">
+	                        <div class="store-number">1</div>
+	                    </div>
+
+	                </div>
+	            </div>
+   	         `
+ 	   })
+	
+    	//vai criar um replace dessa classe <div class="stores-list" > para a que criamos agora com storesHtml
+    	document.querySelector('.stores-list').innerHTML = storesHtml
+    	//especificar a classe que vai fazer o replace
+	}
+
+
+depois de criado a funcao chama ela no initMap()
+
+	function initMap() {
+   	...
+
+	    DisplayStores()
+    		showStoreMarkers();
+	}
+
+2 - configurar view no navegador
+
+	em <div class="stores-list" > -
+
+		element.style {
+   			overflow-y: scroll;
+    			flex-grow: 1;
+		}
+
+	em <div class="store-list-container"> -
+
+	
+		element.style {
+    			display: flex;
+		}
+
+
+adicionar no css..
+
+3.0 - tornar a lista dinamica
+
+
+
+function DisplayStores(){
+	
+   ...
+    
+   stores.forEach(function(store, index){
+
+        
+        var address = store.addressLines; 	 <---------- variavel do endereco que vai pegar no DB
+
+        var phone = store.phoneNumber;		 <---------- variavel do telephone que vai pegar no DB
+
+        
+        storesHtml += `
+            <div class="store-container">
+                
+                <div class="store-container-background">
+
+                    <div class="store-info-container">
+
+
+                        <div class="store-address">
+                            <span>${address[0]}</span>			<-------- pegar endereco 1 da lista address 
+                            <span>${address[1]}</span>			<-------- pegar endereco 2 da lista address
+                        </div>
+                
+                        <div class="store-phone-number">${phone}</div>	<-------- colocar telephnoe
+                
+                    </div>
+            
+                    <div class="store-number-container">
+                        <div class="store-number">${index+1}</div>	<-------- colocar numero do index
+                    </div>
+		...
+
+-----------------------------------------------------------------------------------------------------------------------
+
+MOSTRAR DADOS DA LISTA COM O CLICK ------------------------------------------------------------------------------------
+
+1.0 - criar funcao para mostrar item ao click -
+	function setOnClickListener(){
+
+	    var storeElements = document.querySelectorAll('.store-container');		<--- esse comando vai permitir mostrar o container do item que estamos selecionando
+	    console.log(storeElements);							<--- usar comando console.log para mostrar os dados
+
+	}
+
+2.0 -
+
+	function setOnClickListener(){
+	    var storeElements = document.querySelectorAll('.store-container');
+
+	    storeElements.forEach(function(element, index){        			 //para cada elemento
+	        element.addEventListener('click', function(){       			// adicionar um event listener
+	            new google.maps.event.trigger(markers[index], 'click')
+	        })
+	    })
+
+	}
+
+3.0 - configurar view
+
+	em store-container
+
+		element.style {
+    			cursor: pointer;		<--- vai mostrar o cursor de click quando passar pela lista
+		}
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+PERMITIR PESQUISAR STORE ----------------------------------------------------------------------------------------------
+	
+1.0 - criar funcao
+
+	function searchStore(){  <---- essa funcao vai ser chamada atraves do icone da lupa
+
+	}
+
+2.0 - configurar icone da lupa
+
+	<i class="fas fa-search" onclick="searchStore()"></i>	<-- on click chamar funcao
+
+3.0 - funcao..
+
+	function searchStore(){
+
+    		// a funcao vai ser chamada pelo icone da lupa
+
+    		var zipCode = document.getElementById('-zip-code-input').value; <--- nome do id do input, valor
+    		console.log(zipCode)						<--- verificar resultado
+
+	}
+
+4.0 -
+
+	function searchStore(){
+	  
+
+	    var zipCode = document.getElementById('zip-code-input').value;
+
+	    var foundStores = [];				<--- lista onde vai ficar armazenada as lojas encontradas pelo search input (zip-code-input)
+
+	
+	    if(zipCode){					<--- se tiver algum valor
+
+	        stores.forEach(function(store,index){           <--- para cara loja
+	            
+	            var postal = store.address.postalCode.substring(0, 5);	<----- vai pegar os 5 primeiros digitos do postalCode
+
+	            if (postal == zipCode){			<---	se o postalCode for igual ao input 
+	                foundStores.push(store);		<---    adicionar nome da loja na lista foundStores
+	            }
+	
+	        })
+	    }
+
+	/---- comentar essas 3 funcoes em initMap() ----/
+
+    DisplayStores(foundStores);					<-- mostrar apenas as lojas encontradas na lista nessa funcao
+    showStoreMarkers(foundStores);				<-- mostrar apenas as lojas encontradas na lista nessa funcao
+    setOnClickListener();
+					
+	}
+
+4.1 - passar parametros para as funcoes
+
+	function DisplayStores(stores){...}
+	function showStoreMarkers(stores){...}
+	
+
+5.0 - Criar funcao para limpar a lista antes de usar
+
+	function clearLocations(){
+    
+    		infoWindow.close();		<---se tiver alguma infowindow aberta fechar
+    
+    
+    		for(var i=0; i< markers.length; i++){	<-- remover markers do mapa, deixar limpo
+
+        		markers[i].setMap(null);
+        
+    		}
+
+    		markers.length = 0;
+
+	}
+
+5.1 - chamar essa funcao antes de procurar na funcao search
+
+		function searchStore(){
+		
+		    ...
+		    
+		    clearLocations();
+
+		    DisplayStores(foundStores);
+		    showStoreMarkers(foundStores);
+		    setOnClickListener();
+		}
+
+5.2 - 
+
+// funcao para pesquisar store
+
+		function searchStore(){
+		    
+		    var zipCode = document.getElementById('zip-code-input').value;
+		    var foundStores = [];
+
+		    // se tiver algum valor no input
+		    if(zipCode){
+
+		        stores.forEach(function(store,index){
+		            //                                  vai pegar os 5 primeiros digitos 
+		            var postal = store.address.postalCode.substring(0, 5);
+				
+		            if (postal == zipCode){
+		                foundStores.push(store);
+		            }
+		        })
+		    }
+		    else {
+		        // se nao tiver nenhum zipCode(valor input) entao vai mostrar todas
+		        foundStores = stores;
+		    }
+
+		    clearLocations();
+		    showStoreMarkers(foundStores);
+		    DisplayStores(foundStores);
+		    setOnClickListener();
+		}
+
+5.3 - chamar a funcao no initMap();
+
+		function initMap() {
+ 		    ...
+		    searchStore();
+		}
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+CSS TRANSITIONS ----------------------------------------------------------------------------------------------	
+
+1.0 - no navegador
+	em class="store-container-background"
+
+		element.style {
+			    background-color: #ccc;
+			    margin-top: 12px;
+			    margin-bottom: 12px;
+			    border-radius: 18px;
+		}
+
+
+adicionar no css
+
+	.store-container-background{
+    		display: flex;
+    		padding-left: 8px;
+    		padding-right: 8px;
+    		margin-top: 12px;
+    		margin-bottom: 12px;
+    		border-radius: 18px;
+		transition: all 0.2s ease-in-out;  <-- para ter efeito de transicao quando passar o mouse por cima
+	}	
+
+	.store-container-background:hover {		<- para a cor ficar apenas quando o mouse estiver passando por cima
+    		background-color: #ccc;
+	}
+
+
+

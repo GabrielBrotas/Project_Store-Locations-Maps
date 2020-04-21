@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+/* para ID */
+#map {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+/* para classe */
+.title {
+        font-weight: bold;
+        position: absolute;
+        font-size: 55px;
+        color: #333;
+        text-transform: uppercase;
+        z-index: 100;
+        top: 50px;
+        left: 50px;
+}
+
+.search-container {
+    
+    position: absolute;
+    width: 275px;
+    height: 45px;
+    background-color: #454E53;
+    z-index: 100;
+    top: 140px;
+    left: 50px;
+    border-radius: 50px;
+    display: flex;
+}
+
+.search {
+    flex-grow: 1;
+    align-items: center;
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.search-container input{
+    background-color: transparent;
+    font-size: 15px;
+    flex-grow: 1;
+    border: none;
+    color: white;
+}
+
+.search-container input:focus {
+    outline: none;
+}
+
+.search i{
+    color: white;
+    font-size: 15px;
+}
+
+
+.store-list-container {
+    position: absolute;
+    background: white;
+    width: 260px;
+    z-index: 100;
+    bottom: 20px;
+    left: 58px;
+    top: 200px;
+    border-radius: 20px;
+    display: flex;
+}
+
+
+.store-address{
+    font-size: 17px;
+    margin-top: 25px;
+    color: #514C4C;
+}
+
+.store-phone-number {
+    color: #B5ADAD;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.store-number {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    background-color: #454E53;
+    color: #B5ADAD;			
+    align-items: center;			
+    justify-content: center;	
+    border-radius: 50%;
+}
+
+.store-address span{
+    display: block;
+}
+
+.store-container-background{
+    display: flex;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-radius: 18px;
+    transition: all 0.2s ease-in-out;
+}
+
+.stores-list {
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow-y: scroll;
+    flex-grow: 1;
+}
+
+.store-info-container {
+    flex-grow: 1;
+}
+
+.store-number-container {
+    display: flex;
+    align-items: center;
+}
+
+.store-container {
+    border-bottom: 1px solid #979797;
+    cursor: pointer;
+}
+
+.store-container-background:hover {
+    background-color: #ccc;
+}
